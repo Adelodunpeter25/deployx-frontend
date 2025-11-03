@@ -49,13 +49,13 @@ export default function Hero() {
         </motion.h1>
         
         <motion.p 
-          className="text-xl md:text-2xl text-gray-300 mb-8 max-w-2xl mx-auto"
+          className="text-lg md:text-xl text-gray-300 mb-8 max-w-2xl mx-auto"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
         >
-          Streamline your deployment process with our powerful, developer-first platform. 
-          Ship faster, scale better, worry less.
+          Eliminate the complexity of platform-specific deployment commands. 
+          Just run <code className="text-primary-400 bg-dark-800 px-2 py-1 rounded">deployx deploy</code> and watch your project go live.
         </motion.p>
         
         <motion.div 

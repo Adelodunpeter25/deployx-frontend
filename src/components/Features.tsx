@@ -4,33 +4,33 @@ import { motion } from 'framer-motion'
 const features = [
   {
     icon: Zap,
-    title: 'Lightning Fast',
-    description: 'Deploy in seconds with our optimized build pipeline and global CDN distribution.'
-  },
-  {
-    icon: Shield,
-    title: 'Enterprise Security',
-    description: 'Bank-grade security with automated vulnerability scanning and compliance monitoring.'
+    title: 'Zero Configuration',
+    description: 'Auto-detects your project type and build settings. No configuration files needed.'
   },
   {
     icon: Globe,
-    title: 'Global Scale',
-    description: 'Auto-scaling infrastructure across 15+ regions worldwide for optimal performance.'
+    title: 'Multiple Platforms',
+    description: 'Deploy to GitHub Pages, Vercel, Netlify, Railway, Render with one command.'
   },
   {
     icon: Code,
-    title: 'Developer First',
-    description: 'Intuitive CLI, comprehensive APIs, and seamless integration with your workflow.'
+    title: 'Framework Support',
+    description: 'Works with React, Vue, Next.js, Angular, Django, Flask, FastAPI out of the box.'
   },
   {
     icon: GitBranch,
-    title: 'Git Integration',
-    description: 'Automatic deployments from GitHub, GitLab, and Bitbucket with branch previews.'
+    title: 'Package Manager Detection',
+    description: 'Automatically detects npm, yarn, pnpm, bun, pip, poetry, pipenv, and uv.'
+  },
+  {
+    icon: Shield,
+    title: 'Environment Variables',
+    description: 'Auto-detect .env files and configure them across all deployment platforms.'
   },
   {
     icon: BarChart3,
-    title: 'Real-time Analytics',
-    description: 'Monitor performance, track deployments, and optimize with detailed insights.'
+    title: 'Deployment History',
+    description: 'Track past deployments with timestamps, status, and rollback support.'
   }
 ]
 
@@ -67,11 +67,11 @@ export default function Features() {
           viewport={{ once: true }}
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            Everything you need to
-            <span className="gradient-text block">deploy with confidence</span>
+            One CLI for
+            <span className="gradient-text block">all your deployments</span>
           </h2>
           <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-            Powerful features designed for modern development teams who demand reliability and speed.
+            No more memorizing different CLI tools, configuration formats, or deployment workflows.
           </p>
         </motion.div>
         
