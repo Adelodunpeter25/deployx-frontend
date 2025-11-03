@@ -52,9 +52,8 @@ export default function Mission() {
         <motion.div 
           className="text-center mb-16"
           initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
         >
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
             Our <span className="gradient-text">Mission</span>
@@ -69,8 +68,7 @@ export default function Mission() {
           className="grid md:grid-cols-2 lg:grid-cols-4 gap-8"
           variants={containerVariants}
           initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
+          animate="visible"
         >
           {values.map((value) => {
             const Icon = value.icon

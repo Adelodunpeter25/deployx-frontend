@@ -26,9 +26,8 @@ export default function ContactForm() {
       <motion.div 
         className="mb-8"
         initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
+        animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
-        viewport={{ once: true }}
       >
         <h2 className="text-3xl md:text-4xl font-bold mb-4">
           Send us a <span className="gradient-text">Message</span>
@@ -42,9 +41,8 @@ export default function ContactForm() {
           onSubmit={handleSubmit}
           className="space-y-6"
           initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          viewport={{ once: true }}
         >
           <div className="grid md:grid-cols-2 gap-6">
             <motion.div
