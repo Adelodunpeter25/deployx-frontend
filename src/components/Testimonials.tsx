@@ -74,7 +74,7 @@ export default function Testimonials() {
           whileInView="visible"
           viewport={{ once: true }}
         >
-          {testimonials.map((testimonial, index) => (
+          {testimonials.map((testimonial) => (
             <motion.div
               key={testimonial.name}
               className="card group"

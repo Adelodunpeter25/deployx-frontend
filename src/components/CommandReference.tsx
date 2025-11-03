@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { Terminal, Settings, History, RotateCcw, Eye, Zap, Copy } from 'lucide-react'
+import { Terminal, Settings, RotateCcw, Eye, Zap, Copy } from 'lucide-react'
 import { useState } from 'react'
 
 const commandCategories = [
