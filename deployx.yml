@@ -1,0 +1,9 @@
+build:
+  command: npm run build
+  output: dist
+platform: vercel
+project:
+  name: deployx-frontend
+  type: react
+vercel:
+  name: deployx
