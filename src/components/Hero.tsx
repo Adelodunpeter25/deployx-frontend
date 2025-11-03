@@ -83,14 +83,7 @@ export default function Hero() {
           </motion.button>
         </motion.div>
         
-        <motion.div 
-          className="mt-12 text-sm text-gray-400"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.8 }}
-        >
-          Trusted by 10,000+ developers worldwide
-        </motion.div>
+
       </div>
     </section>
   )

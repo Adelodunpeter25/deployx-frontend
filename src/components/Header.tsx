@@ -1,9 +1,17 @@
 import { Menu, X } from 'lucide-react'
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { Link } from 'react-router-dom'
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+
+  const navItems = [
+    { name: 'Home', path: '/' },
+    { name: 'About', path: '/about' },
+    { name: 'Contact', path: '/contact' },
+    { name: 'Documentation', path: '#docs' }
+  ]
 
   return (
     <motion.header 
@@ -20,48 +28,42 @@ export default function Header() {
             whileHover={{ scale: 1.05 }}
             transition={{ duration: 0.2 }}
           >
-            <div className="text-2xl font-bold gradient-text">DeployX</div>
+            <Link to="/" className="text-2xl font-bold gradient-text">DeployX</Link>
           </motion.div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
-            {['Home', 'About', 'Contact', 'Documentation'].map((item, index) => (
-              <motion.a
-                key={item}
-                href={`#${item.toLowerCase()}`}
-                className="text-gray-300 hover:text-white transition-colors"
+          <nav className="hidden md:flex items-center space-x-8 -ml-16">
+            {navItems.map((item, index) => (
+              <motion.div
+                key={item.name}
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 + 0.3, duration: 0.4 }}
                 whileHover={{ scale: 1.05 }}
               >
-                {item}
-              </motion.a>
+                {item.path.startsWith('#') ? (
+                  <a
+                    href={item.path}
+                    className="text-gray-300 hover:text-white transition-colors"
+                  >
+                    {item.name}
+                  </a>
+                ) : (
+                  <Link
+                    to={item.path}
+                    className="text-gray-300 hover:text-white transition-colors"
+                  >
+                    {item.name}
+                  </Link>
+                )}
+              </motion.div>
             ))}
           </nav>
 
-          {/* Desktop Auth Buttons */}
-          <motion.div 
-            className="hidden md:flex items-center space-x-4"
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.5, duration: 0.4 }}
-          >
-            <motion.button 
-              className="text-gray-300 hover:text-white transition-colors"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              Login
-            </motion.button>
-            <motion.button 
-              className="btn-primary"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              Sign Up
-            </motion.button>
-          </motion.div>
+
+
+          {/* Empty div for spacing */}
+          <div className="hidden md:block"></div>
 
           {/* Mobile Menu Button */}
           <motion.button
@@ -106,27 +108,33 @@ export default function Header() {
               transition={{ duration: 0.3 }}
             >
               <nav className="flex flex-col space-y-4">
-                {['Home', 'About', 'Contact', 'Documentation'].map((item, index) => (
-                  <motion.a
-                    key={item}
-                    href={`#${item.toLowerCase()}`}
-                    className="text-gray-300 hover:text-white transition-colors"
+                {navItems.map((item, index) => (
+                  <motion.div
+                    key={item.name}
                     initial={{ x: -20, opacity: 0 }}
                     animate={{ x: 0, opacity: 1 }}
                     transition={{ delay: index * 0.1, duration: 0.3 }}
                   >
-                    {item}
-                  </motion.a>
+                    {item.path.startsWith('#') ? (
+                      <a
+                        href={item.path}
+                        className="text-gray-300 hover:text-white transition-colors"
+                        onClick={() => setIsMenuOpen(false)}
+                      >
+                        {item.name}
+                      </a>
+                    ) : (
+                      <Link
+                        to={item.path}
+                        className="text-gray-300 hover:text-white transition-colors"
+                        onClick={() => setIsMenuOpen(false)}
+                      >
+                        {item.name}
+                      </Link>
+                    )}
+                  </motion.div>
                 ))}
-                <motion.div 
-                  className="flex flex-col space-y-2 pt-4 border-t border-gray-800"
-                  initial={{ x: -20, opacity: 0 }}
-                  animate={{ x: 0, opacity: 1 }}
-                  transition={{ delay: 0.4, duration: 0.3 }}
-                >
-                  <button className="text-left text-gray-300 hover:text-white transition-colors">Login</button>
-                  <button className="btn-primary w-fit">Sign Up</button>
-                </motion.div>
+
               </nav>
             </motion.div>
           )}

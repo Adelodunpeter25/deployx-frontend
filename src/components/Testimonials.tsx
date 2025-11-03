@@ -1,4 +1,4 @@
-import { Star, Github } from 'lucide-react'
+import { Star } from 'lucide-react'
 import { motion } from 'framer-motion'
 
 const testimonials = [
@@ -23,10 +23,6 @@ const testimonials = [
     content: 'Git integration and automatic deployments saved us countless hours. The preview environments are a game changer.',
     avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=64&h=64&fit=crop&crop=face'
   }
-]
-
-const companies = [
-  'TechCorp', 'StartupXYZ', 'InnovateLab', 'DevStudio', 'CloudFirst', 'ScaleUp'
 ]
 
 const containerVariants = {
@@ -72,7 +68,7 @@ export default function Testimonials() {
         </motion.div>
 
         <motion.div 
-          className="grid md:grid-cols-3 gap-8 mb-20"
+          className="grid md:grid-cols-3 gap-8"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -125,49 +121,7 @@ export default function Testimonials() {
           ))}
         </motion.div>
 
-        {/* Social Proof */}
-        <motion.div 
-          className="text-center"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-        >
-          <motion.div 
-            className="flex items-center justify-center gap-2 mb-8"
-            whileHover={{ scale: 1.05 }}
-            transition={{ duration: 0.2 }}
-          >
-            <Github className="w-6 h-6 text-gray-400" />
-            <span className="text-2xl font-bold gradient-text">12.5k</span>
-            <span className="text-gray-400">GitHub Stars</span>
-          </motion.div>
-          
-          <p className="text-gray-400 mb-8">Trusted by companies worldwide</p>
-          
-          <motion.div 
-            className="flex flex-wrap justify-center items-center gap-8 opacity-60"
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-          >
-            {companies.map((company, index) => (
-              <motion.div
-                key={company}
-                className="text-gray-500 font-medium text-lg hover:text-gray-300 transition-colors"
-                variants={itemVariants}
-                whileHover={{ 
-                  scale: 1.1,
-                  color: '#d1d5db',
-                  transition: { duration: 0.2 }
-                }}
-              >
-                {company}
-              </motion.div>
-            ))}
-          </motion.div>
-        </motion.div>
+
       </div>
     </section>
   )

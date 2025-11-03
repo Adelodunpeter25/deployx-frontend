@@ -1,5 +1,6 @@
 import { Github, Twitter, Linkedin, Mail } from 'lucide-react'
 import { motion } from 'framer-motion'
+import { Link } from 'react-router-dom'
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -27,7 +28,7 @@ export default function Footer() {
     <footer className="bg-dark-900 border-t border-gray-800">
       <div className="max-w-6xl mx-auto px-6 py-12">
         <motion.div 
-          className="grid md:grid-cols-4 gap-8"
+          className="grid md:grid-cols-3 gap-8"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -60,50 +61,30 @@ export default function Footer() {
             </div>
           </motion.div>
 
-          {/* Quick Links */}
-          <motion.div variants={itemVariants}>
-            <h3 className="text-white font-semibold mb-4">Product</h3>
-            <ul className="space-y-2">
-              {['Features', 'Pricing', 'Security', 'Integrations'].map((item, index) => (
-                <motion.li
-                  key={item}
-                  initial={{ opacity: 0, x: -10 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.1, duration: 0.3 }}
-                  viewport={{ once: true }}
-                >
-                  <motion.a
-                    href="#"
-                    className="text-gray-400 hover:text-white transition-colors"
-                    whileHover={{ x: 5 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    {item}
-                  </motion.a>
-                </motion.li>
-              ))}
-            </ul>
-          </motion.div>
-
           {/* Resources */}
           <motion.div variants={itemVariants}>
             <h3 className="text-white font-semibold mb-4">Resources</h3>
             <ul className="space-y-2">
-              {['Documentation', 'API Reference', 'Guides', 'Status'].map((item, index) => (
+              {[
+                { name: 'Documentation', path: '#docs' },
+                { name: 'API Reference', path: '#api' },
+                { name: 'Guides', path: '#guides' },
+                { name: 'Status', path: '#status' }
+              ].map((item, index) => (
                 <motion.li
-                  key={item}
+                  key={item.name}
                   initial={{ opacity: 0, x: -10 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   transition={{ delay: index * 0.1, duration: 0.3 }}
                   viewport={{ once: true }}
                 >
                   <motion.a
-                    href="#"
+                    href={item.path}
                     className="text-gray-400 hover:text-white transition-colors"
                     whileHover={{ x: 5 }}
                     transition={{ duration: 0.2 }}
                   >
-                    {item}
+                    {item.name}
                   </motion.a>
                 </motion.li>
               ))}
@@ -114,22 +95,39 @@ export default function Footer() {
           <motion.div variants={itemVariants}>
             <h3 className="text-white font-semibold mb-4">Company</h3>
             <ul className="space-y-2">
-              {['About', 'Contact', 'Careers', 'Blog'].map((item, index) => (
+              {[
+                { name: 'About', path: '/about' },
+                { name: 'Contact', path: '/contact' },
+                { name: 'Careers', path: '#careers' },
+                { name: 'Blog', path: '/blog' }
+              ].map((item, index) => (
                 <motion.li
-                  key={item}
+                  key={item.name}
                   initial={{ opacity: 0, x: -10 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   transition={{ delay: index * 0.1, duration: 0.3 }}
                   viewport={{ once: true }}
                 >
-                  <motion.a
-                    href="#"
-                    className="text-gray-400 hover:text-white transition-colors"
-                    whileHover={{ x: 5 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    {item}
-                  </motion.a>
+                  {item.path.startsWith('#') ? (
+                    <motion.a
+                      href={item.path}
+                      className="text-gray-400 hover:text-white transition-colors"
+                      whileHover={{ x: 5 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      {item.name}
+                    </motion.a>
+                  ) : (
+                    <Link to={item.path}>
+                      <motion.span
+                        className="text-gray-400 hover:text-white transition-colors"
+                        whileHover={{ x: 5 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        {item.name}
+                      </motion.span>
+                    </Link>
+                  )}
                 </motion.li>
               ))}
             </ul>
