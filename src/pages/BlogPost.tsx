@@ -26,7 +26,7 @@ const blogPosts = {
       
       <p>That's it! Your application will be deployed to our global infrastructure.</p>
     `,
-    date: '2024-01-15',
+    date: '2025-11-03',
     readTime: '5 min read',
     category: 'Tutorial'
   },
@@ -50,7 +50,7 @@ const blogPosts = {
       <h2>Regular Updates</h2>
       <p>Keep your dependencies up to date to avoid security vulnerabilities.</p>
     `,
-    date: '2024-01-10',
+    date: '2025-11-03',
     readTime: '8 min read',
     category: 'Security'
   },
@@ -73,7 +73,7 @@ const blogPosts = {
       <h2>Getting Started</h2>
       <p>Branch previews are enabled by default for all new projects. For existing projects, enable them in your project settings.</p>
     `,
-    date: '2024-01-05',
+    date: '2025-11-03',
     readTime: '3 min read',
     category: 'Feature'
   }

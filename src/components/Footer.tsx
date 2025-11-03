@@ -66,7 +66,7 @@ export default function Footer() {
             <h3 className="text-white font-semibold mb-4">Resources</h3>
             <ul className="space-y-2">
               {[
-                { name: 'Documentation', path: '#docs' },
+                { name: 'Documentation', path: '/docs' },
                 { name: 'API Reference', path: '#api' },
                 { name: 'Guides', path: '#guides' },
                 { name: 'Status', path: '#status' }

@@ -7,7 +7,7 @@ const blogPosts = [
     id: 1,
     title: 'Getting Started with DeployX CLI',
     excerpt: 'Learn how to deploy your first application using our powerful command-line interface.',
-    date: '2024-01-15',
+    date: '2025-11-03',
     readTime: '5 min read',
     category: 'Tutorial'
   },
@@ -15,7 +15,7 @@ const blogPosts = [
     id: 2,
     title: 'Best Practices for Secure Deployments',
     excerpt: 'Essential security considerations when deploying applications to production environments.',
-    date: '2024-01-10',
+    date: '2025-11-03',
     readTime: '8 min read',
     category: 'Security'
   },
@@ -23,7 +23,7 @@ const blogPosts = [
     id: 3,
     title: 'Introducing Branch Previews',
     excerpt: 'Preview your changes before merging with our new branch preview feature.',
-    date: '2024-01-05',
+    date: '2025-11-03',
     readTime: '3 min read',
     category: 'Feature'
   }
