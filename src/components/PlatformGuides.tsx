@@ -75,6 +75,48 @@ export default function PlatformGuides() {
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
           {platforms.map((platform, index) => {
             const Icon = platform.icon
+            
+            if (platform.isInternal) {
+              return (
+                <Link key={platform.name} to={platform.tokenUrl}>
+                  <motion.div
+                    className="card group hover:scale-105 h-full flex flex-col cursor-pointer"
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: index * 0.1 }}
+                  >
+                    <div className={`w-12 h-12 bg-gradient-to-r ${platform.color} rounded-lg flex items-center justify-center mb-4`}>
+                      <Icon className="w-6 h-6 text-white" />
+                    </div>
+                    
+                    <h3 className="text-xl font-semibold mb-2 text-white">
+                      {platform.name}
+                    </h3>
+                    
+                    <p className="text-gray-400 mb-4 text-sm">
+                      {platform.description}
+                    </p>
+
+                    <div className="mb-4 flex-grow">
+                      <h4 className="text-sm font-medium text-gray-300 mb-2">Required Permissions:</h4>
+                      <div className="flex flex-wrap gap-1">
+                        {platform.permissions.map((permission, i) => (
+                          <span key={i} className="bg-dark-800 text-primary-400 text-xs px-2 py-1 rounded">
+                            {permission}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="inline-flex items-center gap-2 text-primary-400 hover:text-primary-300 text-sm transition-colors">
+                      Contact Us
+                      <Plus className="w-3 h-3" />
+                    </div>
+                  </motion.div>
+                </Link>
+              )
+            }
+
             return (
               <motion.div
                 key={platform.name}
@@ -106,25 +148,15 @@ export default function PlatformGuides() {
                   </div>
                 </div>
 
-                {platform.isInternal ? (
-                  <Link
-                    to={platform.tokenUrl}
-                    className="inline-flex items-center gap-2 text-primary-400 hover:text-primary-300 text-sm transition-colors"
-                  >
-                    Contact Us
-                    <Plus className="w-3 h-3" />
-                  </Link>
-                ) : (
-                  <a
-                    href={platform.tokenUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-primary-400 hover:text-primary-300 text-sm transition-colors"
-                  >
-                    Get API Token
-                    <ExternalLink className="w-3 h-3" />
-                  </a>
-                )}
+                <a
+                  href={platform.tokenUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-primary-400 hover:text-primary-300 text-sm transition-colors"
+                >
+                  Get API Token
+                  <ExternalLink className="w-3 h-3" />
+                </a>
               </motion.div>
             )
           })}
@@ -138,8 +170,8 @@ export default function PlatformGuides() {
         >
           <h3 className="text-xl font-semibold mb-4 text-white">🔐 Token Security</h3>
           <div className="space-y-3 text-gray-300">
-            <p>• Tokens are saved securely in your local configuration</p>
-            <p>• Configuration files are automatically added to <code className="text-primary-400 bg-dark-800 px-1 rounded">.gitignore</code></p>
+            <p>• Tokens are automatically added to <code className="text-primary-400 bg-dark-800 px-1 rounded">.gitignore</code></p>
+            <p>• Configuration files are saved securely in your local configuration</p>
             <p>• DeployX will prompt for tokens during first-time setup</p>
             <p>• You can update tokens anytime with <code className="text-primary-400 bg-dark-800 px-1 rounded">deployx config edit</code></p>
           </div>

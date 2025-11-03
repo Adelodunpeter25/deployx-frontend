@@ -107,13 +107,13 @@ export default function CommandReference() {
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-8">
+        <div className="grid md:grid-cols-2 gap-8 items-stretch">
           {commandCategories.map((category, categoryIndex) => {
             const Icon = category.icon
             return (
               <motion.div
                 key={category.title}
-                className="card"
+                className="card h-full flex flex-col"
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: categoryIndex * 0.1 }}
@@ -125,7 +125,7 @@ export default function CommandReference() {
                   <h3 className="text-xl font-semibold text-white">{category.title}</h3>
                 </div>
 
-                <div className="space-y-4">
+                <div className="space-y-4 flex-grow">
                   {category.commands.map((cmd, index) => (
                     <div key={index} className="border-l-2 border-primary-500/30 pl-4">
                       <div className="bg-dark-800 rounded-lg p-3 mb-2 flex items-center justify-between gap-3">
