@@ -91,29 +91,27 @@ export default function QuickStart() {
             transition={{ duration: 0.8, delay: 0.4 }}
           >
             <h3 className="text-2xl font-semibold mb-6 text-white">First Deployment</h3>
-            <div className="card">
-              <div className="space-y-6">
-                <div>
-                  <h4 className="font-medium text-white mb-2">1. Navigate to your project</h4>
-                  <div className="bg-dark-800 rounded-lg p-3">
-                    <code className="text-primary-400 font-mono">cd my-project</code>
-                  </div>
+            <div className="space-y-4">
+              <div className="card">
+                <h4 className="font-medium text-white mb-3">1. Navigate to your project</h4>
+                <div className="bg-dark-800 rounded-lg p-5">
+                  <code className="text-primary-400 font-mono text-sm">cd my-project</code>
                 </div>
-                
-                <div>
-                  <h4 className="font-medium text-white mb-2">2. Deploy in one command</h4>
-                  <div className="bg-dark-800 rounded-lg p-3">
-                    <code className="text-primary-400 font-mono">deployx deploy</code>
-                  </div>
+              </div>
+              
+              <div className="card">
+                <h4 className="font-medium text-white mb-3">2. Deploy in one command</h4>
+                <div className="bg-dark-800 rounded-lg p-6">
+                  <code className="text-primary-400 font-mono text-sm">deployx deploy</code>
                 </div>
+              </div>
 
-                <div className="bg-primary-900/20 border border-primary-500/30 rounded-lg p-4">
-                  <h4 className="font-medium text-primary-300 mb-2">🎉 That's it!</h4>
-                  <p className="text-gray-300 text-sm">
-                    DeployX will auto-detect your project, configure build settings, 
-                    handle environment variables, and deploy your project with a live URL.
-                  </p>
-                </div>
+              <div className="card bg-primary-900/20 border border-primary-500/30">
+                <h4 className="font-medium text-primary-300 mb-2">🎉 That's it!</h4>
+                <p className="text-gray-300 text-sm">
+                  DeployX will auto-detect your project, configure build settings, 
+                  handle environment variables, and deploy your project with a live URL.
+                </p>
               </div>
             </div>
           </motion.div>
