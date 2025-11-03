@@ -61,8 +61,6 @@ export default function Header() {
             ))}
           </nav>
 
-
-
           {/* Empty div for spacing */}
           <div className="hidden md:block"></div>
 
@@ -97,50 +95,73 @@ export default function Header() {
             </AnimatePresence>
           </motion.button>
         </div>
-
-        {/* Mobile Navigation */}
-        <AnimatePresence>
-          {isMenuOpen && (
-            <motion.div 
-              className="md:hidden py-4 border-t border-gray-800"
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: 'auto', opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.3 }}
-            >
-              <nav className="flex flex-col space-y-4">
-                {navItems.map((item, index) => (
-                  <motion.div
-                    key={item.name}
-                    initial={{ x: -20, opacity: 0 }}
-                    animate={{ x: 0, opacity: 1 }}
-                    transition={{ delay: index * 0.1, duration: 0.3 }}
-                  >
-                    {item.path.startsWith('#') ? (
-                      <a
-                        href={item.path}
-                        className="text-gray-300 hover:text-white transition-colors"
-                        onClick={() => setIsMenuOpen(false)}
-                      >
-                        {item.name}
-                      </a>
-                    ) : (
-                      <Link
-                        to={item.path}
-                        className="text-gray-300 hover:text-white transition-colors"
-                        onClick={() => setIsMenuOpen(false)}
-                      >
-                        {item.name}
-                      </Link>
-                    )}
-                  </motion.div>
-                ))}
-
-              </nav>
-            </motion.div>
-          )}
-        </AnimatePresence>
       </div>
+
+      {/* Mobile Sidebar Overlay */}
+      <AnimatePresence>
+        {isMenuOpen && (
+          <>
+            {/* Backdrop */}
+            <motion.div
+              className="fixed inset-0 bg-black/50 z-40 md:hidden"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsMenuOpen(false)}
+            />
+            
+            {/* Sidebar */}
+            <motion.div
+              className="fixed top-0 right-0 h-screen w-80 bg-dark-950 border-l border-gray-800 z-50 md:hidden"
+              initial={{ x: '100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '100%' }}
+              transition={{ type: 'tween', duration: 0.3 }}
+            >
+              <div className="p-6">
+                <div className="flex items-center justify-between mb-8">
+                  <div className="text-2xl font-bold gradient-text">DeployX</div>
+                  <button
+                    onClick={() => setIsMenuOpen(false)}
+                    className="text-gray-300 hover:text-white"
+                  >
+                    <X className="w-6 h-6" />
+                  </button>
+                </div>
+                
+                <nav className="flex flex-col space-y-6">
+                  {navItems.map((item, index) => (
+                    <motion.div
+                      key={item.name}
+                      initial={{ x: 20, opacity: 0 }}
+                      animate={{ x: 0, opacity: 1 }}
+                      transition={{ delay: index * 0.1, duration: 0.3 }}
+                    >
+                      {item.path.startsWith('#') ? (
+                        <a
+                          href={item.path}
+                          className="text-lg text-gray-300 hover:text-white transition-colors block"
+                          onClick={() => setIsMenuOpen(false)}
+                        >
+                          {item.name}
+                        </a>
+                      ) : (
+                        <Link
+                          to={item.path}
+                          className="text-lg text-gray-300 hover:text-white transition-colors block"
+                          onClick={() => setIsMenuOpen(false)}
+                        >
+                          {item.name}
+                        </Link>
+                      )}
+                    </motion.div>
+                  ))}
+                </nav>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
     </motion.header>
   )
 }
