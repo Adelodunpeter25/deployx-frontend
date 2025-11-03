@@ -143,22 +143,25 @@ export default function Footer() {
           viewport={{ once: true }}
         >
           <p className="text-gray-400 text-sm">
-            © 2024 DeployX. All rights reserved.
+            © 2025 DeployX. All rights reserved.
           </p>
           <div className="flex space-x-6 mt-4 md:mt-0">
-            {['Privacy Policy', 'Terms of Service', 'Cookie Policy'].map((item, index) => (
-              <motion.a
-                key={item}
-                href="#"
-                className="text-gray-400 hover:text-white transition-colors text-sm"
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.6 + index * 0.1, duration: 0.3 }}
-                whileHover={{ y: -2 }}
-                viewport={{ once: true }}
-              >
-                {item}
-              </motion.a>
+            {[
+              { name: 'Privacy Policy', path: '/privacy' },
+              { name: 'Terms of Service', path: '/terms' }
+            ].map((item, index) => (
+              <Link key={item.name} to={item.path}>
+                <motion.span
+                  className="text-gray-400 hover:text-white transition-colors text-sm"
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.6 + index * 0.1, duration: 0.3 }}
+                  whileHover={{ y: -2 }}
+                  viewport={{ once: true }}
+                >
+                  {item.name}
+                </motion.span>
+              </Link>
             ))}
           </div>
         </motion.div>

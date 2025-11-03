@@ -1,4 +1,4 @@
-import { ArrowRight, Play } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 import { motion } from 'framer-motion'
 
 export default function Hero() {
@@ -59,28 +59,22 @@ export default function Hero() {
         </motion.p>
         
         <motion.div 
-          className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+          className="flex justify-center items-center"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
         >
-          <motion.button 
-            className="btn-primary flex items-center gap-2 group"
+          <motion.a 
+            href="https://pypi.org/project/deployx/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-primary flex items-center gap-3 text-lg px-8 py-4 group"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
             Get Started
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-          </motion.button>
-          
-          <motion.button 
-            className="btn-secondary flex items-center gap-2"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <Play className="w-4 h-4" />
-            Watch Demo
-          </motion.button>
+            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+          </motion.a>
         </motion.div>
         
 
