@@ -1,14 +1,10 @@
 import { motion } from 'framer-motion'
 import { ArrowLeft } from 'lucide-react'
 import { Link } from 'react-router-dom'
-import { useEffect } from 'react'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 
 export default function Privacy() {
-  useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [])
 
   return (
     <div className="min-h-screen bg-dark-950">

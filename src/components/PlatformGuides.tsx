@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
-import { Github, Globe, Zap, Train, Server, ExternalLink } from 'lucide-react'
+import { Github, Globe, Zap, Train, Server, ExternalLink, Plus } from 'lucide-react'
+import { Link } from 'react-router-dom'
 
 const platforms = [
   {
@@ -41,6 +42,15 @@ const platforms = [
     tokenUrl: 'https://dashboard.render.com/account/api-keys',
     permissions: ['Full access'],
     color: 'from-blue-600 to-blue-700'
+  },
+  {
+    name: 'Request Platform',
+    icon: Plus,
+    description: "Don't see your platform? Let us know!",
+    tokenUrl: '/contact',
+    permissions: ['Community driven'],
+    color: 'from-green-600 to-green-700',
+    isInternal: true
   }
 ]
 
@@ -62,13 +72,13 @@ export default function PlatformGuides() {
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
           {platforms.map((platform, index) => {
             const Icon = platform.icon
             return (
               <motion.div
                 key={platform.name}
-                className="card group hover:scale-105"
+                className="card group hover:scale-105 h-full flex flex-col"
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
@@ -85,7 +95,7 @@ export default function PlatformGuides() {
                   {platform.description}
                 </p>
 
-                <div className="mb-4">
+                <div className="mb-4 flex-grow">
                   <h4 className="text-sm font-medium text-gray-300 mb-2">Required Permissions:</h4>
                   <div className="flex flex-wrap gap-1">
                     {platform.permissions.map((permission, i) => (
@@ -96,15 +106,25 @@ export default function PlatformGuides() {
                   </div>
                 </div>
 
-                <a
-                  href={platform.tokenUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-primary-400 hover:text-primary-300 text-sm transition-colors"
-                >
-                  Get API Token
-                  <ExternalLink className="w-3 h-3" />
-                </a>
+                {platform.isInternal ? (
+                  <Link
+                    to={platform.tokenUrl}
+                    className="inline-flex items-center gap-2 text-primary-400 hover:text-primary-300 text-sm transition-colors"
+                  >
+                    Contact Us
+                    <Plus className="w-3 h-3" />
+                  </Link>
+                ) : (
+                  <a
+                    href={platform.tokenUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-primary-400 hover:text-primary-300 text-sm transition-colors"
+                  >
+                    Get API Token
+                    <ExternalLink className="w-3 h-3" />
+                  </a>
+                )}
               </motion.div>
             )
           })}

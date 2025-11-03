@@ -7,10 +7,12 @@ import BlogPost from './pages/BlogPost'
 import Documentation from './pages/Documentation'
 import Privacy from './pages/Privacy'
 import Terms from './pages/Terms'
+import ScrollToTop from './components/ScrollToTop'
 
 function App() {
   return (
     <Router>
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/about" element={<About />} />
