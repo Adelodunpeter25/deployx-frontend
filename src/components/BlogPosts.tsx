@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import { Calendar, Clock, ArrowRight } from 'lucide-react'
+import { Link } from 'react-router-dom'
 
 const blogPosts = [
   {
@@ -57,45 +58,45 @@ export default function BlogPosts() {
           className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
           variants={containerVariants}
           initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
+          animate="visible"
         >
           {blogPosts.map((post) => (
-            <motion.article
-              key={post.id}
-              className="card group cursor-pointer"
-              variants={itemVariants}
-              whileHover={{ scale: 1.02 }}
-            >
-              <div className="mb-4">
-                <span className="text-primary-400 text-sm font-medium">
-                  {post.category}
-                </span>
-              </div>
-              
-              <h2 className="text-xl font-semibold mb-3 text-white group-hover:text-primary-400 transition-colors">
-                {post.title}
-              </h2>
-              
-              <p className="text-gray-400 mb-4 leading-relaxed">
-                {post.excerpt}
-              </p>
-              
-              <div className="flex items-center justify-between text-sm text-gray-500">
-                <div className="flex items-center gap-4">
-                  <div className="flex items-center gap-1">
-                    <Calendar className="w-4 h-4" />
-                    <span>{new Date(post.date).toLocaleDateString()}</span>
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <Clock className="w-4 h-4" />
-                    <span>{post.readTime}</span>
-                  </div>
+            <Link key={post.id} to={`/blog/${post.id}`}>
+              <motion.article
+                className="card group cursor-pointer"
+                variants={itemVariants}
+                whileHover={{ scale: 1.02 }}
+              >
+                <div className="mb-4">
+                  <span className="text-primary-400 text-sm font-medium">
+                    {post.category}
+                  </span>
                 </div>
                 
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </div>
-            </motion.article>
+                <h2 className="text-xl font-semibold mb-3 text-white group-hover:text-primary-400 transition-colors">
+                  {post.title}
+                </h2>
+                
+                <p className="text-gray-400 mb-4 leading-relaxed">
+                  {post.excerpt}
+                </p>
+                
+                <div className="flex items-center justify-between text-sm text-gray-500">
+                  <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-1">
+                      <Calendar className="w-4 h-4" />
+                      <span>{new Date(post.date).toLocaleDateString()}</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <Clock className="w-4 h-4" />
+                      <span>{post.readTime}</span>
+                    </div>
+                  </div>
+                  
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </div>
+              </motion.article>
+            </Link>
           ))}
         </motion.div>
       </div>

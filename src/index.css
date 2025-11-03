@@ -26,4 +26,28 @@
   .gradient-text {
     @apply bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent;
   }
+  
+  .prose {
+    @apply text-gray-300;
+  }
+  
+  .prose h2 {
+    @apply text-2xl font-bold text-white mt-8 mb-4;
+  }
+  
+  .prose p {
+    @apply mb-4 leading-relaxed;
+  }
+  
+  .prose ul {
+    @apply list-disc list-inside mb-4 space-y-2;
+  }
+  
+  .prose pre {
+    @apply bg-dark-800 p-4 rounded-lg overflow-x-auto mb-4;
+  }
+  
+  .prose code {
+    @apply text-primary-400 font-mono;
+  }
 }
