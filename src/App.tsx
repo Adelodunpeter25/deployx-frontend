@@ -8,6 +8,8 @@ import Documentation from './pages/Documentation'
 import FAQ from './pages/FAQ'
 import Privacy from './pages/Privacy'
 import Terms from './pages/Terms'
+import Guides from './pages/Guides'
+import Status from './pages/Status'
 import NotFound from './components/NotFound'
 import ErrorBoundary from './components/ErrorBoundary'
 import ScrollToTop from './components/ScrollToTop'
@@ -27,6 +29,8 @@ function App() {
           <Route path="/faq" element={<FAQ />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/terms" element={<Terms />} />
+          <Route path="/guides" element={<Guides />} />
+          <Route path="/status" element={<Status />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>

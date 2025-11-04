@@ -67,9 +67,8 @@ export default function Footer() {
             <ul className="space-y-2">
               {[
                 { name: 'Documentation', path: '/docs' },
-                { name: 'API Reference', path: '#api' },
-                { name: 'Guides', path: '#guides' },
-                { name: 'Status', path: '#status' }
+                { name: 'Guides', path: '/guides' },
+                { name: 'Status', path: '/status' }
               ].map((item, index) => (
                 <motion.li
                   key={item.name}
@@ -78,14 +77,12 @@ export default function Footer() {
                   transition={{ delay: index * 0.1, duration: 0.3 }}
                   viewport={{ once: true }}
                 >
-                  <motion.a
-                    href={item.path}
-                    className="text-gray-400 hover:text-white transition-colors"
-                    whileHover={{ x: 5 }}
-                    transition={{ duration: 0.2 }}
+                  <Link
+                    to={item.path}
+                    className="text-gray-400 hover:text-white transition-colors block"
                   >
                     {item.name}
-                  </motion.a>
+                  </Link>
                 </motion.li>
               ))}
             </ul>
