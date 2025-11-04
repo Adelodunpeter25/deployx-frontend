@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
 import { Terminal, Play } from 'lucide-react'
 
@@ -26,6 +26,15 @@ export default function LiveDemo() {
   const [showTokenInput, setShowTokenInput] = useState(false)
   const [selectedPlatform, setSelectedPlatform] = useState(0)
   const [tokenValue, setTokenValue] = useState('')
+  const terminalRef = useRef<HTMLDivElement>(null)
+  const selectedPlatformRef = useRef<number>(0)
+
+  // Auto-scroll to bottom when new lines are added
+  useEffect(() => {
+    if (terminalRef.current) {
+      terminalRef.current.scrollTop = terminalRef.current.scrollHeight
+    }
+  }, [lines])
 
   useEffect(() => {
     const handleKeyPress = (e: KeyboardEvent) => {
@@ -37,15 +46,16 @@ export default function LiveDemo() {
           e.preventDefault()
           setSelectedPlatform(prev => prev < platforms.length - 1 ? prev + 1 : 0)
         } else if (e.key === 'Enter') {
+          selectedPlatformRef.current = selectedPlatform
           setShowPlatformSelect(false)
-          continueAfterPlatform()
+          continueAfterPlatform(selectedPlatform)
         }
       }
 
       if (showTokenInput) {
         if (e.key === 'Enter') {
           setShowTokenInput(false)
-          continueAfterToken()
+          continueAfterToken(selectedPlatformRef.current)
         } else if (e.key.length === 1 || e.key === 'Backspace') {
           // Simulate typing
           if (e.key === 'Backspace') {
@@ -70,23 +80,27 @@ export default function LiveDemo() {
     })
   }
 
-  const continueAfterPlatform = async () => {
-    await addLine(`✅ ${platforms[selectedPlatform].name} selected`)
-    await addLine(`Enter ${platforms[selectedPlatform].token}:`)
+  const continueAfterPlatform = async (platformIndex: number) => {
+    const currentPlatform = platforms[platformIndex]
+    await addLine(`✅ ${currentPlatform.name} selected`)
+    await addLine(`Enter ${currentPlatform.token}:`)
     setTokenValue('')
     setShowTokenInput(true)
   }
 
-  const continueAfterToken = async () => {
+  const continueAfterToken = async (platformIndex: number) => {
+    const currentPlatform = platforms[platformIndex]
+    await addLine('💾 Token saved')
+    await addLine('📝 Automatically added to .gitignore')
     await addLine('✅ Token authenticated')
     await addLine('🔧 Checking environment variables...')
     await addLine('📦 Installing dependencies with npm...')
     await addLine('⚡ Dependencies installed (2.3s)')
     await addLine('🏗️  Running: npm run build')
     await addLine('📦 Build completed successfully')
-    await addLine(`🚀 Deploying to ${platforms[selectedPlatform].name}...`)
+    await addLine(`🚀 Deploying to ${currentPlatform.name}...`)
     await addLine('✨ Deployment successful!')
-    await addLine(`🌐 https://${platforms[selectedPlatform].url}`)
+    await addLine(`🌐 https://${currentPlatform.url}`)
     setIsRunning(false)
   }
 
@@ -160,7 +174,7 @@ export default function LiveDemo() {
               </button>
             </div>
             
-            <div className="p-6 font-mono text-sm min-h-[400px]">
+            <div ref={terminalRef} className="p-6 font-mono text-sm h-[400px] overflow-y-auto">
               {lines.map((line, index) => (
                 <motion.div
                   key={index}
