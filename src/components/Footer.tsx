@@ -35,7 +35,7 @@ export default function Footer() {
           viewport={{ once: true }}
         >
           {/* Company Info */}
-          <motion.div className="md:col-span-1" variants={itemVariants}>
+          <motion.div variants={itemVariants}>
             <motion.div 
               className="text-2xl font-bold gradient-text mb-4"
               whileHover={{ scale: 1.05 }}
@@ -61,14 +61,14 @@ export default function Footer() {
             </div>
           </motion.div>
 
-          {/* Resources */}
-          <motion.div variants={itemVariants}>
-            <h3 className="text-white font-semibold mb-4">Resources</h3>
+          {/* Company */}
+          <motion.div variants={itemVariants} className="text-center">
+            <h3 className="text-white font-semibold mb-4">Company</h3>
             <ul className="space-y-2">
               {[
-                { name: 'Documentation', path: '/docs' },
-                { name: 'Guides', path: '/guides' },
-                { name: 'Status', path: '/status' }
+                { name: 'About', path: '/about' },
+                { name: 'Contact', path: '/contact' },
+                { name: 'Blog', path: '/blog' }
               ].map((item, index) => (
                 <motion.li
                   key={item.name}
@@ -88,45 +88,8 @@ export default function Footer() {
             </ul>
           </motion.div>
 
-          {/* Company */}
+          {/* Empty third column for spacing */}
           <motion.div variants={itemVariants}>
-            <h3 className="text-white font-semibold mb-4">Company</h3>
-            <ul className="space-y-2">
-              {[
-                { name: 'About', path: '/about' },
-                { name: 'Contact', path: '/contact' },
-                { name: 'Blog', path: '/blog' }
-              ].map((item, index) => (
-                <motion.li
-                  key={item.name}
-                  initial={{ opacity: 0, x: -10 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.1, duration: 0.3 }}
-                  viewport={{ once: true }}
-                >
-                  {item.path.startsWith('#') ? (
-                    <motion.a
-                      href={item.path}
-                      className="text-gray-400 hover:text-white transition-colors"
-                      whileHover={{ x: 5 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      {item.name}
-                    </motion.a>
-                  ) : (
-                    <Link to={item.path}>
-                      <motion.span
-                        className="text-gray-400 hover:text-white transition-colors"
-                        whileHover={{ x: 5 }}
-                        transition={{ duration: 0.2 }}
-                      >
-                        {item.name}
-                      </motion.span>
-                    </Link>
-                  )}
-                </motion.li>
-              ))}
-            </ul>
           </motion.div>
         </motion.div>
 

@@ -2,7 +2,6 @@ import Header from '../components/Header'
 import Footer from '../components/Footer'
 import PlatformGuides from '../components/PlatformGuides'
 import FrameworkTutorials from '../components/FrameworkTutorials'
-import AdvancedWorkflows from '../components/AdvancedWorkflows'
 import TroubleshootingGuide from '../components/TroubleshootingGuide'
 
 export default function Guides() {
@@ -18,7 +17,6 @@ export default function Guides() {
           
           <PlatformGuides />
           <FrameworkTutorials />
-          <AdvancedWorkflows />
           <TroubleshootingGuide />
         </div>
       </div>
