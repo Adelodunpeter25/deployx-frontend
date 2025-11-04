@@ -26,7 +26,7 @@ const itemVariants = {
 export default function Footer() {
   return (
     <footer className="bg-dark-900 border-t border-gray-800">
-      <div className="max-w-6xl mx-auto px-6 py-12">
+      <div className="max-w-6xl mx-auto px-6 py-8">
         <motion.div 
           className="grid md:grid-cols-3 gap-8"
           variants={containerVariants}

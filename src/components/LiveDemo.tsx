@@ -2,33 +2,123 @@ import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Terminal, Play } from 'lucide-react'
 
-const terminalSteps = [
-  { text: '$ deployx deploy', delay: 0 },
-  { text: '🔍 Detecting project type...', delay: 1000 },
-  { text: '✅ React app detected', delay: 1500 },
-  { text: '📦 Installing dependencies...', delay: 2000 },
-  { text: '🏗️  Building project...', delay: 3000 },
-  { text: '🚀 Deploying to Vercel...', delay: 4000 },
-  { text: '✨ Deployment successful!', delay: 5000 },
-  { text: '🌐 https://your-app.vercel.app', delay: 5500 }
+const platforms = [
+  { name: 'Vercel', url: 'your-app.vercel.app', recommended: true, token: 'VERCEL_TOKEN' },
+  { name: 'GitHub Pages', url: 'username.github.io/your-app', recommended: false, token: 'GITHUB_TOKEN' },
+  { name: 'Netlify', url: 'your-app.netlify.app', recommended: false, token: 'NETLIFY_TOKEN' },
+  { name: 'Render', url: 'your-app.onrender.com', recommended: false, token: 'RENDER_TOKEN' },
+  { name: 'Railway', url: 'your-app.railway.app', recommended: false, token: 'RAILWAY_TOKEN' }
+]
+
+const asciiArt = [
+  '██████╗ ███████╗██████╗ ██╗      ██████╗ ██╗   ██╗██╗  ██╗',
+  '██╔══██╗██╔════╝██╔══██╗██║     ██╔═══██╗╚██╗ ██╔╝╚██╗██╔╝',
+  '██║  ██║█████╗  ██████╔╝██║     ██║   ██║ ╚████╔╝  ╚███╔╝ ',
+  '██║  ██║██╔══╝  ██╔═══╝ ██║     ██║   ██║  ╚██╔╝   ██╔██╗ ',
+  '██████╔╝███████╗██║     ███████╗╚██████╔╝   ██║   ██╔╝ ██╗',
+  '╚═════╝ ╚══════╝╚═╝     ╚══════╝ ╚═════╝    ╚═╝   ╚═╝  ╚═╝'
 ]
 
 export default function LiveDemo() {
-  const [currentStep, setCurrentStep] = useState(-1)
+  const [lines, setLines] = useState<string[]>([])
   const [isRunning, setIsRunning] = useState(false)
+  const [showPlatformSelect, setShowPlatformSelect] = useState(false)
+  const [showTokenInput, setShowTokenInput] = useState(false)
+  const [selectedPlatform, setSelectedPlatform] = useState(0)
+  const [tokenValue, setTokenValue] = useState('')
 
-  const startDemo = () => {
-    setCurrentStep(-1)
-    setIsRunning(true)
-    
-    terminalSteps.forEach((step, index) => {
-      setTimeout(() => {
-        setCurrentStep(index)
-        if (index === terminalSteps.length - 1) {
-          setIsRunning(false)
+  useEffect(() => {
+    const handleKeyPress = (e: KeyboardEvent) => {
+      if (showPlatformSelect) {
+        if (e.key === 'ArrowUp') {
+          e.preventDefault()
+          setSelectedPlatform(prev => prev > 0 ? prev - 1 : platforms.length - 1)
+        } else if (e.key === 'ArrowDown') {
+          e.preventDefault()
+          setSelectedPlatform(prev => prev < platforms.length - 1 ? prev + 1 : 0)
+        } else if (e.key === 'Enter') {
+          setShowPlatformSelect(false)
+          continueAfterPlatform()
         }
-      }, step.delay)
+      }
+
+      if (showTokenInput) {
+        if (e.key === 'Enter') {
+          setShowTokenInput(false)
+          continueAfterToken()
+        } else if (e.key.length === 1 || e.key === 'Backspace') {
+          // Simulate typing
+          if (e.key === 'Backspace') {
+            setTokenValue(prev => prev.slice(0, -1))
+          } else {
+            setTokenValue(prev => prev + '*')
+          }
+        }
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyPress)
+    return () => window.removeEventListener('keydown', handleKeyPress)
+  }, [showPlatformSelect, showTokenInput])
+
+  const addLine = (text: string, delay = 1000) => {
+    return new Promise(resolve => {
+      setTimeout(() => {
+        setLines(prev => [...prev, text])
+        resolve(void 0)
+      }, delay)
     })
+  }
+
+  const continueAfterPlatform = async () => {
+    await addLine(`✅ ${platforms[selectedPlatform].name} selected`)
+    await addLine(`Enter ${platforms[selectedPlatform].token}:`)
+    setTokenValue('')
+    setShowTokenInput(true)
+  }
+
+  const continueAfterToken = async () => {
+    await addLine('✅ Token authenticated')
+    await addLine('🔧 Checking environment variables...')
+    await addLine('📦 Installing dependencies with npm...')
+    await addLine('⚡ Dependencies installed (2.3s)')
+    await addLine('🏗️  Running: npm run build')
+    await addLine('📦 Build completed successfully')
+    await addLine(`🚀 Deploying to ${platforms[selectedPlatform].name}...`)
+    await addLine('✨ Deployment successful!')
+    await addLine(`🌐 https://${platforms[selectedPlatform].url}`)
+    setIsRunning(false)
+  }
+
+  const startDemo = async () => {
+    setLines([])
+    setIsRunning(true)
+    setShowPlatformSelect(false)
+    setShowTokenInput(false)
+
+    // Show ASCII art first
+    for (const line of asciiArt) {
+      await addLine(line, 200)
+    }
+    
+    await addLine('', 500) // Empty line
+    await addLine('$ deployx deploy', 500)
+    await addLine('🔍 Scanning project structure...')
+    await addLine('📁 Found: pages/, components/, next.config.js')
+    await addLine('✅ Next.js app detected')
+    await addLine('Select deployment platform:')
+    setShowPlatformSelect(true)
+  }
+
+  const getLineColor = (line: string) => {
+    if (line.includes('██') || line.includes('╗') || line.includes('╚')) return 'text-primary-400'
+    if (line.includes('$')) return 'text-green-400'
+    if (line.includes('✅') || line.includes('✨')) return 'text-green-400'
+    if (line.includes('🌐')) return 'text-blue-400'
+    if (line.includes('📁') || line.includes('🔧')) return 'text-yellow-400'
+    if (line.includes('⚡')) return 'text-purple-400'
+    if (line.includes('Select') || line.includes('Enter')) return 'text-cyan-400'
+    return 'text-gray-300'
   }
 
   return (
@@ -44,7 +134,7 @@ export default function LiveDemo() {
             See DeployX in Action
           </h2>
           <p className="text-gray-400 text-lg">
-            Watch how easy it is to deploy your project with zero configuration
+            Interactive terminal demo - use arrow keys when prompted
           </p>
         </motion.div>
 
@@ -58,7 +148,7 @@ export default function LiveDemo() {
             <div className="flex items-center justify-between px-4 py-3 bg-gray-800 border-b border-gray-700">
               <div className="flex items-center space-x-2">
                 <Terminal className="w-4 h-4 text-gray-400" />
-                <span className="text-sm text-gray-300">Terminal</span>
+                <span className="text-sm text-gray-300">Interactive Terminal</span>
               </div>
               <button
                 onClick={startDemo}
@@ -66,25 +156,61 @@ export default function LiveDemo() {
                 className="flex items-center space-x-2 px-3 py-1 bg-primary-600 hover:bg-primary-700 disabled:bg-gray-600 text-white text-sm rounded transition-colors"
               >
                 <Play className="w-3 h-3" />
-                <span>{isRunning ? 'Running...' : 'Run Demo'}</span>
+                <span>{isRunning ? 'Running...' : 'Start Demo'}</span>
               </button>
             </div>
             
-            <div className="p-6 font-mono text-sm min-h-[300px]">
-              {terminalSteps.map((step, index) => (
+            <div className="p-6 font-mono text-sm min-h-[400px]">
+              {lines.map((line, index) => (
                 <motion.div
                   key={index}
                   initial={{ opacity: 0 }}
-                  animate={{ opacity: currentStep >= index ? 1 : 0 }}
-                  className={`mb-2 ${
-                    step.text.includes('$') ? 'text-green-400' :
-                    step.text.includes('✅') || step.text.includes('✨') ? 'text-green-400' :
-                    step.text.includes('🌐') ? 'text-blue-400' :
-                    'text-gray-300'
-                  }`}
+                  animate={{ opacity: 1 }}
+                  className={`mb-2 ${getLineColor(line)}`}
                 >
-                  {step.text}
-                  {currentStep === index && (
+                  {line}
+                </motion.div>
+              ))}
+
+              {/* Platform Selection */}
+              {showPlatformSelect && (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  className="ml-4 mb-2"
+                >
+                  {platforms.map((platform, index) => (
+                    <div
+                      key={index}
+                      className={`${
+                        selectedPlatform === index
+                          ? 'text-blue-400 bg-gray-800'
+                          : 'text-gray-500'
+                      } px-2 py-1 rounded flex items-center justify-between`}
+                    >
+                      <span>
+                        {selectedPlatform === index ? '→' : ' '} {platform.name}
+                      </span>
+                      {platform.recommended && (
+                        <span className="text-green-400 text-xs ml-2">(recommended)</span>
+                      )}
+                    </div>
+                  ))}
+                  <div className="text-gray-500 text-xs mt-1">
+                    Use ↑↓ arrows and Enter to select
+                  </div>
+                </motion.div>
+              )}
+
+              {/* Token Input */}
+              {showTokenInput && (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  className="ml-4 mb-2"
+                >
+                  <div className="text-gray-300">
+                    {tokenValue}
                     <motion.span
                       animate={{ opacity: [1, 0] }}
                       transition={{ duration: 0.8, repeat: Infinity }}
@@ -92,9 +218,23 @@ export default function LiveDemo() {
                     >
                       |
                     </motion.span>
-                  )}
+                  </div>
+                  <div className="text-gray-500 text-xs mt-1">
+                    Type your token and press Enter (input will be masked)
+                  </div>
                 </motion.div>
-              ))}
+              )}
+
+              {/* Cursor */}
+              {isRunning && !showPlatformSelect && !showTokenInput && (
+                <motion.span
+                  animate={{ opacity: [1, 0] }}
+                  transition={{ duration: 0.8, repeat: Infinity }}
+                  className="text-gray-300"
+                >
+                  |
+                </motion.span>
+              )}
             </div>
           </div>
         </motion.div>
