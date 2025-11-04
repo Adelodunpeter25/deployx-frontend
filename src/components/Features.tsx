@@ -57,7 +57,7 @@ const itemVariants = {
 
 export default function Features() {
   return (
-    <section className="py-2 px-6">
+    <section className="py-32 px-6">
       <div className="max-w-6xl mx-auto">
         <motion.div 
           className="text-center mb-16"
@@ -67,8 +67,8 @@ export default function Features() {
           viewport={{ once: true }}
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            One CLI for
-            <span className="gradient-text block">all your deployments</span>
+            Features that power
+            <span className="gradient-text block">DeployX</span>
           </h2>
           <p className="text-xl text-gray-400 max-w-2xl mx-auto">
             No more memorizing different CLI tools, configuration formats, or deployment workflows.
